@@ -15,6 +15,13 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('order_id'); //Ordem (Pedido)
+            $table->unsignedInteger('product_id'); //Produto do pedido
+            $table->double('price', 10,2); //Preço do  produto
+            $table->integer('qty'); //Quantidade  de produtos
+
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
